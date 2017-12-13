@@ -40,11 +40,5 @@ class Cluster:
     def __str__(self):
         return 'Cluster(name="{}")'.format(self.name)
 
-    def getSize(self):
-        return len(self._points)
-
     def addPoint(self, point):
         self._points.add(point)
-
-    def hasPoint(self, point):
-        return (point in self._points)
