@@ -35,6 +35,8 @@ def clustering(radius, min_points, points):
     # Group points into clusters
     clusters = []
     for P in points:
+        if P.clusterId == 'Noise':
+            continue
         cluster_exist = False
         for cluster in clusters:
             if P.clusterId == cluster.name:
@@ -46,5 +48,5 @@ def clustering(radius, min_points, points):
         new_cluster = Cluster(name=P.clusterId)
         new_cluster.addPoint(P)
         clusters.append(new_cluster)
-
+    
     return clusters

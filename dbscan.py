@@ -32,21 +32,19 @@ if __name__ == '__main__':
                                            pts)
     with open(args.data_file) as data_file:
         points = set()
-
-        line = data_file.readline()
-        while(len(line) > 0):
+        for line in data_file:
             point_x, point_y = line.rstrip('\n').split('\t', maxsplit=1)
             new_point = Point(x=float(point_x), y=float(point_y))
             points.add(new_point)
-            line = data_file.readline()
 
-        clusters = make_clusters(points)
-        if len(clusters) == 0:
-            print('No clusters are found', file=sys.stderr)
-            exit(0)
+    clusters = make_clusters(points)
+    if len(clusters) == 0:
+        print('No clusters are found', file=sys.stderr)
+        exit(0)
 
+    with open('result.csv', 'w+') as result_file:
         for cluster_idx, each_cluster in enumerate(clusters):
             for each_point in each_cluster.points:
-                print('{}\t{}\t{}'.format(each_point.x,
-                                          each_point.y,
-                                          cluster_idx))
+                result_file.write('{},{},{}\n'.format(cluster_idx,
+                                          each_point.x,
+                                          each_point.y))

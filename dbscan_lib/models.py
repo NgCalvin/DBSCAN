@@ -25,9 +25,9 @@ class Point(_point_model):
         )
 
 class Cluster:
-    def __init__(self, name=None, points=set()):
+    def __init__(self, name=None, points=None):
         self._name = name
-        self._points = points
+        self._points = set() if points is None else points
 
     @property
     def name(self):
@@ -39,6 +39,9 @@ class Cluster:
 
     def __str__(self):
         return 'Cluster(name="{}")'.format(self.name)
+
+    def getSize(self):
+        return len(self._points)
 
     def addPoint(self, point):
         self._points.add(point)
