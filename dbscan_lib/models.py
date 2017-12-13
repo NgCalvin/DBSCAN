@@ -5,6 +5,19 @@ from collections import namedtuple
 _point_model = namedtuple('Point', ['x', 'y'])
 
 class Point(_point_model):
+    def __init__(self, x, y):
+        self._clusterId = None
+
+    @property
+    def clusterId(self):
+        return self._clusterId
+
+    def assignCluster(self, clusterId):
+        self._clusterId = clusterId
+
+    def __str__(self):
+        return 'Point(Cluster: {}, [{},{}])'.format(self.clusterId, self.x, self.y)
+
     def distance(self, another_point):
         return math.sqrt(
             (self.x - another_point.x) ** 2 +
@@ -12,13 +25,13 @@ class Point(_point_model):
         )
 
 class Cluster:
-    def __init__(self, name='', points=set()):
+    def __init__(self, name=None, points=set()):
         self._name = name
         self._points = points
 
     @property
     def name(self):
-        return list(self._name)
+        return self._name
 
     @property
     def points(self):
